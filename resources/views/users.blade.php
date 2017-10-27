@@ -10,7 +10,7 @@
                         <ul>
                             @foreach($users as $user)
                                 <li>
-                                    <a href={{"/users/".$user->id}}> {{$user->name}}</a>
+                                    <a href={{"/users/".$user->id}}><img class="img-circle user_image" width="50px" height="50px" src="{{"/files/".$user->image_path."?user_id=".Auth::user()->id}}"> {{$user->name}}</a>
                                 </li>
                             @endforeach
                         </ul>

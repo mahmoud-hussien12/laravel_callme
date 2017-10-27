@@ -16,8 +16,14 @@ var app = angular.module('callme', [])
     $scope.userHover = function () {
         $(document).ready(function () {
             $(".post-creater-image-link").hover(function () {
-                alert("this.id");
+                var post_id = this.id.substr(9, this.id.length);
+                $("#abbr"+post_id).css("display", "block");
             });
+            $(".post-creater-image-link").mouse(function () {
+                var post_id = this.id.substr(9, this.id.length);
+                $("#abbr"+post_id).css("display", "none");
+            });
+            $(".abbr-div").css("display", "none");
         });
     }
     $scope.sendFriendReuest = function (token, user_id, friend_id) {

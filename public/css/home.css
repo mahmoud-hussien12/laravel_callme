@@ -168,6 +168,8 @@ ul.post-files li img{
     height: 150px !important;
     background-color: whitesmoke !important;
     z-index: 5;
+    border: thin black;
+    display: none;
 }
 .abbr-div img{
     width: 100px;

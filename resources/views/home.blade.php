@@ -70,15 +70,14 @@
         </div>
         ((userHover();))
         <ul class="posts">
-            {{$i = 0}}
             @foreach(Auth::user()->viewablePosts() as $post)
                 <li class="post">
                     <div class="post-header">
-                        <div class="abbr-div" id="{{"abbr".$i}}">
+                        <div class="abbr-div" id="{{"abbr".$post->id}}">
                             <img src="{{"/files/".$post->user->image_path."?user_id=".Auth::user()->id}}">
                         </div>
-                        <a class="post-creater-image-link" id="{{"imageLink".$i}}" href="/users/{{$post->user->id}}">
-                            <img class="img-circle" src="{{"/files/".$post->user->image_path."?user_id=".Auth::user()->id}}" class="post-creater-image">
+                        <a class="post-creater-image-link" id="{{"imageLink".$post->id}}" href="/users/{{$post->user->id}}">
+                            <img class="img-circle post-creater-image" src="{{"/files/".$post->user->image_path."?user_id=".Auth::user()->id}}">
                         </a>
                         <dl class="post-header-caption">
                             <dt><a href="/users/{{$post->user->id}}">{{$post->user->name}}</a></dt>
@@ -106,7 +105,6 @@
                         </ul>
                     </div>
                 </li>
-                {{$i++}}
             @endforeach
         </ul>
     </div>
