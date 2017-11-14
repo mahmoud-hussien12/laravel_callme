@@ -7,24 +7,55 @@ var app = angular.module('callme', [])
     $interpolateProvider.startSymbol('((');
     $interpolateProvider.endSymbol('))');
 })
-.controller("controller", function ($scope){
+.controller("controller", function ($scope, $compile){
     $scope.elements = [];
     $scope.deleteds = [];
     $scope.showUpload = false;
     $scope.mouseDown = false;
-    $scope.showAbbr = false;
-    $scope.userHover = function () {
+    $scope.chats = [];
+    $scope.changeChatStatus = function (id) {
         $(document).ready(function () {
-            $(".post-creater-image-link").hover(function () {
-                var post_id = this.id.substr(9, this.id.length);
-                $("#abbr"+post_id).css("display", "block");
-            });
-            $(".post-creater-image-link").mouse(function () {
-                var post_id = this.id.substr(9, this.id.length);
-                $("#abbr"+post_id).css("display", "none");
-            });
-            $(".abbr-div").css("display", "none");
+            var chatBodyId = id.replace("header", "body");
+            var chatFooterId = id.replace("header", "footer");
+            var tempDisplay = $("#"+chatBodyId).css("display");
+            var display = "none";
+            if(tempDisplay == "none") {
+                display = "block";
+            }
+            $("#" + chatBodyId + " ,#" + chatFooterId).css("display", display);
         });
+    }
+    $scope.createChat = function (id, name) {
+        $(document).ready(function () {
+            var i = $scope.chats.length+1;
+             var li =
+                 "<li class='chat-item' id='chat-item"+i+"'>"+
+                     "<div class='chat' id='chat"+i+"'>"+
+                        "<div class='chat-header' ng-click=\"changeChatStatus('chat"+i+"-header')\" id='chat"+i+"-header'>"+
+                            "<div><a href='/users/"+id+"' ng-click=\"changeChatStatus('chat"+i+"-header')\">"+name+"</a></div>"+
+                            "<i class='glyphicon glyphicon-remove' ng-click=\"closeChat('chat-item"+i+"')\"></i>"+
+                        "</div>"+
+                        "<div class='chat-body' id='chat"+i+"-body'>"+
+                            "<input type='text'>"+
+                        "</div>"+
+                        "<div class='chat-footer' id='chat"+i+"-footer'>"+
+                            "<ul class='chat-attached-list'>"+
+                                "<li><a href=''><i class='glyphicon glyphicon-paperclip'></i></a></li>"+
+                                "<li><a href=''><i class='glyphicon glyphicon-save-file'></i></a></li>"+
+                                "<li><a href=''><i class='glyphicon glyphicon-save-file'></i></a></li>"+
+                                "<li><a href=''><i class='glyphicon glyphicon-save-file'></i></a></li>"+
+                            "</ul>"+
+                        "</div>"+
+                    "</div>"+
+                "</li>";
+             $("ul.chats").append($compile(li)($scope));
+             $scope.chats.push(i);
+        });
+    }
+    $scope.closeChat = function (id) {
+        $("#"+id).hide();
+        //$("#" + id).css("display", "none");
+
     }
     $scope.sendFriendReuest = function (token, user_id, friend_id) {
         if(!$scope.showDrobdownFriendshipStatus){
@@ -43,7 +74,6 @@ var app = angular.module('callme', [])
                     $scope.getFriendshipStatus(user_id, friend_id);
                 },
                 error: function (data, err, status) {
-                    alert(status);
                 },
                 async: false
             });
@@ -60,7 +90,6 @@ var app = angular.module('callme', [])
                 $scope.getFriendshipStatus(user_id, friend_id);
             },
             error: function (data, err, status) {
-                alert(status);
             },
             async: false
         });
@@ -117,7 +146,6 @@ var app = angular.module('callme', [])
 
             },
             error: function (data, err, status) {
-                alert(status);
             },
             async: false
         });
@@ -150,7 +178,6 @@ var app = angular.module('callme', [])
                 alert(data.status);
             },
             error: function (data, err, status) {
-                alert(status);
             },
             async: false
         });
@@ -193,7 +220,6 @@ var app = angular.module('callme', [])
                 //alert(data.deleteds+"\n"+data.elements+"\n"+data.content);
             },
             error: function (data, err, status) {
-                alert(status);
             },
             async: false
         });
@@ -234,7 +260,6 @@ var app = angular.module('callme', [])
                         $scope.elements.push(e);
                     },
                     error: function (data, err, status) {
-                        alert(status);
                     },
                     async: false
                 });

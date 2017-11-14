@@ -11,7 +11,7 @@
                     <ul class="friends-list list-group">
                         @foreach(Auth::user()->getFriends() as $friend)
                             <li class="list-group-item">
-                                <a href={{"/users/".$friend->id}}> {{$friend->name}}</a>
+                                <a href="" ng-click="createChat('{{$friend->id}}', '{{$friend->name}}')"> {{$friend->name}}</a>
                             </li>
                         @endforeach
 
@@ -68,17 +68,20 @@
                 </form>
             </div>
         </div>
-        ((userHover();))
         <ul class="posts">
             @foreach(Auth::user()->viewablePosts() as $post)
                 <li class="post">
                     <div class="post-header">
-                        <div class="abbr-div" id="{{"abbr".$post->id}}">
-                            <img src="{{"/files/".$post->user->image_path."?user_id=".Auth::user()->id}}">
-                        </div>
+
                         <a class="post-creater-image-link" id="{{"imageLink".$post->id}}" href="/users/{{$post->user->id}}">
                             <img class="img-circle post-creater-image" src="{{"/files/".$post->user->image_path."?user_id=".Auth::user()->id}}">
                         </a>
+                        <div class="abbr-div" id="{{"abbr".$post->id}}">
+                            <img src="{{"/files/".$post->user->image_path."?user_id=".Auth::user()->id}}">
+                            <a href="/users/{{$post->user->id}}">{{$post->user->name}}</a>
+                            <a href="/users/{{$post->user->id}}">((getFriendshipStatus('{{Auth::user()->id}}', '{{$post->user->id}}'); friendshipText))</a>
+                            <button ng-click="createChat('{{$post->user->id}}', '{{$post->user->name}}');">Send Message</button>
+                        </div>
                         <dl class="post-header-caption">
                             <dt><a href="/users/{{$post->user->id}}">{{$post->user->name}}</a></dt>
                             <dd><a href="/posts/{{$post->id}}">{{$post->created_at}}</a></dd>
@@ -108,5 +111,9 @@
             @endforeach
         </ul>
     </div>
+</div>
+<div class="footer" ng-controller="controller">
+    <ul class="chats">
+    </ul>
 </div>
 @endsection
