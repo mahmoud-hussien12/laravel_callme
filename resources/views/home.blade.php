@@ -113,6 +113,14 @@
     </div>
 </div>
 <div class="footer" ng-controller="controller">
+    <div class="queue dropup">
+        <a data-toggle="dropdown" class="queued-toggle" role="button"><i class="glyphicon glyphicon-comment"></i></a>
+        <ul class="queued-chats dropdown-menu">
+            <li class="queued-chat"><a>Normal</a></li>
+            <li class="queued-chat"><a>Disabled</a></li>
+            <li class="queued-chat"><a>Active</a></li>
+        </ul>
+    </div>
     <ul class="chats">
     </ul>
 </div>

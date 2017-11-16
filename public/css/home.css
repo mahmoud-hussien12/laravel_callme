@@ -227,17 +227,17 @@ ul.chats{
     max-height: 100%;
     list-style: none;
     padding: 0;
-    margin-left: 220px;
+    margin-left: 16.5%;
     margin-bottom: 0%;
 }
 ul.chats li.chat-item{
     display: inline-block;
-    width: 300px;
+    width: 22.25%;
     max-height:100%;
     margin-left: 1px;
 }
 ul.chats li.chat-item .chat{
-    width: 300px;
+    width: 100%;
     max-height:100%;
     border: solid thin;
 }
@@ -247,7 +247,7 @@ ul.chats li.chat-item .chat{
     background-color: #4267b2;
 }
 .chat .chat-header div{
-    width: 100px !important;
+    width: 33% !important;
     height: 25px;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -257,7 +257,7 @@ ul.chats li.chat-item .chat{
 }
 .chat .chat-header i{
     position: relative;
-    left: 280px;
+    left: 94%;
     top: -24px;
 }
 .chat .chat-body input{
@@ -287,4 +287,13 @@ ul.chat-attached-list li{
 }
 ul.chat-attached-list li a{
     color: white;
+}
+div.queue{
+    margin-left: 83.27%;
+    position: fixed;
+    bottom: 0%;
+}
+div.queue a.queued-toggle{
+    font-size: x-large;
+    color: black;
 }
